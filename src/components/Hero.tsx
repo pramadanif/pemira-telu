@@ -1,9 +1,17 @@
 "use client";
-import { motion } from 'motion/react';
-import { ChevronDown, Fingerprint } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { ChevronDown, Fingerprint, Sparkles } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 export function Hero() {
+  const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
+
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacityText = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   const [timeLeft, setTimeLeft] = useState({ days: 12, hours: 8, minutes: 45, seconds: 20 });
 
   useEffect(() => {
@@ -21,62 +29,96 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-telkom-maroon via-telkom-dark to-telkom-black">
-      {/* Abstract 3D Glass elements simulated with gradients */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-telkom-red rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-gold-glow rounded-full mix-blend-screen filter blur-[150px] opacity-20"></div>
+    <section ref={containerRef} className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
+      {/* Refined Premium Background (Light Theme) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Soft radial glow at top right */}
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-telkom-red/10 rounded-full blur-[120px] animate-pulse"></div>
+        {/* Soft radial glow at bottom left */}
+        <div className="absolute -bottom-40 -left-60 w-[800px] h-[800px] bg-gray-100 rounded-full blur-[150px]"></div>
+        {/* Mesh Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-white"></div>
+        {/* Very subtle grid structural texture */}
+        <div className="absolute inset-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(circle, #E5E7EB 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      </div>
 
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto flex flex-col items-center">
+      <motion.div style={{ y: yText, opacity: opacityText }} className="relative z-10 text-center px-4 max-w-7xl mx-auto flex flex-col items-center mt-12 w-full">
+        
+        {/* Eyebrow Label */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
+          className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 bg-white shadow-sm mb-12"
         >
-          <h2 className="text-gold-glow font-mono tracking-[0.3em] uppercase text-sm md:text-base mb-4">Pemilihan Raya Mahasiswa 2026</h2>
-          <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-display font-bold leading-none tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-2xl">
-            TEL-U SURABAYA<br/>MEMILIH
+          <Sparkles className="w-4 h-4 text-telkom-red" />
+          <span className="text-gray-600 font-mono tracking-[0.2em] uppercase text-xs font-bold">Pemilihan Raya Mahasiswa 2026</span>
+        </motion.div>
+
+        {/* Main Headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
+          className="flex flex-col items-center w-full mb-16"
+        >
+          <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[0.9] tracking-tighter text-gray-900 mb-2 drop-shadow-sm">
+            TEL-U SBY
+          </h1>
+          <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[0.9] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-telkom-red to-red-800 drop-shadow-xl">
+            MEMILIH
           </h1>
         </motion.div>
 
-        {/* Countdown Timer */}
+        {/* Minimalist Countdown */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="glass-panel rounded-3xl p-6 md:p-10 mb-12 flex gap-4 md:gap-8 border-t border-white/20 shadow-[0_0_50px_rgba(226,6,19,0.3)]"
+          transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+          className="w-full max-w-3xl mb-16"
+          suppressHydrationWarning
         >
-          {Object.entries(timeLeft).map(([unit, value]) => {
-            const labels: Record<string, string> = { days: 'Hari', hours: 'Jam', minutes: 'Menit', seconds: 'Detik' };
-            return (
-              <div key={unit} className="flex flex-col items-center">
-                <span className="text-4xl md:text-6xl font-display font-bold text-white tabular-nums tracking-tighter">
-                  {value.toString().padStart(2, '0')}
-                </span>
-                <span className="text-xs md:text-sm text-gray-400 uppercase tracking-widest mt-2">{labels[unit]}</span>
-              </div>
-            );
-          })}
+          <div className="flex justify-center flex-wrap gap-4 md:gap-8">
+            {Object.entries(timeLeft).map(([unit, value], i) => {
+              const labels: Record<string, string> = { days: 'Hari', hours: 'Jam', minutes: 'Menit', seconds: 'Detik' };
+              return (
+                <div key={unit} className="flex flex-col items-center px-8 py-6 rounded-[2rem] bg-white border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.04)] min-w-[120px] md:min-w-[160px] relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-red-50 rounded-full blur-2xl transform translate-x-12 -translate-y-12 group-hover:bg-red-100 transition-colors"></div>
+                  <span className="relative z-10 text-5xl md:text-7xl font-display font-black text-gray-900 tabular-nums tracking-tighter">
+                    {value.toString().padStart(2, '0')}
+                  </span>
+                  <span className="relative z-10 text-xs md:text-sm text-gray-500 font-mono uppercase tracking-widest mt-2">{labels[unit]}</span>
+                </div>
+              );
+            })}
+          </div>
         </motion.div>
 
+        {/* Call to Action */}
         <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(212, 175, 55, 0.6)" }}
-          whileTap={{ scale: 0.95 }}
-          className="group relative px-8 py-4 bg-gradient-to-r from-yellow-600 to-amber-600 rounded-full font-display font-bold text-lg uppercase tracking-wider overflow-hidden"
+          onClick={() => router.push('/login')}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(200, 16, 46, 0.25)" }}
+          whileTap={{ scale: 0.98 }}
+          className="group relative px-10 py-5 bg-telkom-red rounded-full font-display font-bold text-lg text-white uppercase tracking-[0.2em] overflow-hidden transition-all shadow-xl"
         >
-          <div className="absolute inset-0 bg-white/20 group-hover:bg-transparent transition-colors"></div>
-          <span className="relative flex items-center gap-3">
+          <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-telkom-red transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-0"></div>
+          <span className="relative z-10 flex items-center gap-3">
             <Fingerprint className="w-6 h-6" />
-            Masuk untuk Memilih
+            Mulai Memilih
           </span>
         </motion.button>
-      </div>
+      </motion.div>
 
+      {/* Floating Scroll Indicator */}
       <motion.div 
         animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 text-white/50"
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="absolute bottom-8 text-gray-400 hover:text-gray-900 transition-colors cursor-pointer z-20"
       >
-        <ChevronDown className="w-8 h-8" />
+        <ChevronDown className="w-6 h-6" />
       </motion.div>
     </section>
   );
