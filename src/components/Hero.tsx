@@ -42,6 +42,12 @@ export function Hero() {
         <div className="absolute inset-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(circle, #E5E7EB 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
       </div>
 
+      <div className="absolute top-0 inset-x-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6 md:py-8 flex items-center">
+          <img src="/logo.png" alt="Telkom University Logo" className="h-10 md:h-14 w-auto object-contain" />
+        </div>
+      </div>
+
       <motion.div style={{ y: yText, opacity: opacityText }} className="relative z-10 text-center px-4 max-w-7xl mx-auto flex flex-col items-center mt-12 w-full">
         
         {/* Eyebrow Label */}

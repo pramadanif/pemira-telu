@@ -79,9 +79,12 @@ export default function VotePage() {
 
       {/* Header Bar */}
       <header className="fixed top-0 inset-x-0 h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 z-40 flex items-center px-6 lg:px-12 justify-between shadow-sm">
-        <div className="font-display font-bold text-xl uppercase tracking-widest text-gray-900 flex items-center gap-3">
-          <div className="bg-telkom-red/10 p-2 rounded-full"><ShieldCheck className="text-telkom-red w-5 h-5" /></div>
-          Bilik Suara Digital
+        <div className="flex items-center gap-6">
+          <img src="/logo.png" alt="Telkom University Logo" className="h-8 w-auto object-contain" />
+          <div className="hidden sm:flex font-display font-bold text-lg uppercase tracking-widest text-gray-900 items-center gap-3">
+            <div className="bg-telkom-red/10 p-2 rounded-full"><ShieldCheck className="text-telkom-red w-4 h-4" /></div>
+            Bilik Suara Digital
+          </div>
         </div>
         <div className="text-sm font-mono text-gray-500">
           Sesi aktif: <span className="text-green-600 font-bold">Aman</span>

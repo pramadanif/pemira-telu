@@ -29,9 +29,12 @@ export default function QuickCount() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Responsive Header */}
         <div className="mb-12 sm:mb-16">
-          <a href="/" className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-gray-500 hover:text-telkom-red mb-6 sm:mb-8 transition-colors bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
-            <ArrowLeft className="w-4 h-4" /> Kembali ke Beranda
-          </a>
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            <a href="/" className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-bold text-gray-500 hover:text-telkom-red transition-colors bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
+              <ArrowLeft className="w-4 h-4" /> Kembali ke Beranda
+            </a>
+            <img src="/logo.png" alt="Telkom University Logo" className="h-10 md:h-12 w-auto object-contain" />
+          </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-gray-900 mb-6 sm:mb-8 uppercase tracking-tighter drop-shadow-sm leading-none">
             Hitung <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-telkom-red drop-shadow-md">Cepat</span>

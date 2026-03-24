@@ -37,14 +37,21 @@ export default function LoginPage() {
       {/* Decorative Grids */}
       <div className="absolute inset-0 z-0 opacity-[0.2]" style={{ backgroundImage: 'radial-gradient(circle, #E5E7EB 2px, transparent 2px)', backgroundSize: '40px 40px' }}></div>
 
-      <div className="relative z-10 w-full max-w-5xl flex flex-col lg:flex-row gap-12 lg:gap-24 items-center p-8">
+      {/* Top Branding / Navbar */}
+      <div className="absolute top-0 inset-x-0 z-50">
+        <div className="max-w-7xl mx-auto px-8 py-6 md:py-8 flex items-center">
+          <img src="/logo.png" alt="Telkom University Logo" className="h-10 md:h-14 w-auto object-contain" />
+        </div>
+      </div>
+
+      <div className="relative z-10 w-full max-w-5xl flex flex-col lg:flex-row gap-12 lg:gap-24 items-center p-8 mt-12">
         
         {/* Left Side Branding */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: 'easeOut' }}
-          className="lg:w-1/2 text-center lg:text-left"
+          className="lg:w-1/2 text-center lg:text-left flex flex-col items-center lg:items-start"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-red-100 text-telkom-red shadow-sm text-sm font-mono tracking-widest uppercase mb-8 font-bold">
             <ShieldCheck className="w-4 h-4" /> SSO Terenkripsi
